@@ -23,15 +23,15 @@ public class Board {
     }
 
     public boolean cekFitBlock(Block block, int row, int col) {
-        if (row + block.block.length > board.length || col + block.block[0].length > board[0].length) {
+        if (row + block.currentVar().length > board.length || col + block.currentVar()[0].length > board[0].length) {
             return false;
             // Kalau blocknya keluar dari board, return false
         }
-        for (int i = 0; i < block.block.length; i++) {
-            for (int j = 0; j < block.block[0].length; j++) {
-                if (block.block[i][j] != ' ' && board[row + i][col + j] != '.') {
+        for (int i = 0; i < block.currentVar().length; i++) {
+            for (int j = 0; j < block.currentVar()[0].length; j++) {
+                if (block.currentVar()[i][j] != ' ' && board[row + i][col + j] != '.') {
                     return false;
-                    // kalau coba diisi block dan tidak kosong (isinya bukan '.') return false
+                    // kalau coba diisi bagian block dan tidak kosong (isinya bukan '.') return false
                 }
             }
         }
@@ -46,13 +46,13 @@ public class Board {
         }
     }
 
-    // fungsi putBlock untuk meletakkan block di board jika cekFitBlock bernilai true
     public void putBlock(Block block, int row, int col) {
+        // fungsi putBlock untuk meletakkan block di board jika cekFitBlock bernilai true
         if (cekFitBlock(block, row, col)) {
-            for (int i = 0; i < block.block.length; i++) {
-                for (int j = 0; j < block.block[0].length; j++) {
-                    if (block.block[i][j] != ' ') {
-                        board[row + i][col + j] = block.block[i][j];
+            for (int i = 0; i < block.currentVar().length; i++) {
+                for (int j = 0; j < block.currentVar()[0].length; j++) {
+                    if (block.currentVar()[i][j] != ' ') {
+                        board[row + i][col + j] = block.currentVar()[i][j];
                     }
                 }
             }
@@ -69,5 +69,15 @@ public class Board {
         }
     }
 
+    public boolean cekFull() {
+        for (char[] chars : board) {
+            for (int i = 0; i < board[0].length; i++) {
+                if (chars[i] == '.') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
