@@ -5,19 +5,26 @@ public class Solve {
     List<Block> blocks;
     Board board;
     Board solution;
-    int tries;
+    long tries;
+    long time;
 
     public Solve(List<Block> blocks, Board board) {
         this.blocks = blocks;
         this.board = board;
         this.tries = 0;
+        this.time = 0;
     }
 
     public boolean solve() {
-        return solve(0);
+        long startTime = System.currentTimeMillis();
+        boolean result = solve(0);
+        long endTime = System.currentTimeMillis();
+        time = endTime - startTime;
+        return result;
     }
 
     public boolean solve(int idx) {
+
         if (idx == blocks.size() && board.cekFull()) {
             solution = new Board(board.board.length, board.board[0].length);
             for (int i = 0; i < board.board.length; i++) {
@@ -46,7 +53,8 @@ public class Solve {
 
     public void printSolution() {
         solution.printBoard();
-        System.out.println("\nTries: " + tries);
+        System.out.println("\nWaktu pencarian: " + time + " ms");
+        System.out.println("\nBanyak kasus yang ditinjau: " + tries);
     }
 
     public void clearSolution() {
