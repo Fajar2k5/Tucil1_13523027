@@ -25,17 +25,22 @@ public class Solve {
 
     public boolean solve(int idx) {
 
-        if (idx == blocks.size() && board.cekFull()) {
-            solution = new Board(board.board.length, board.board[0].length);
-            for (int i = 0; i < board.board.length; i++) {
-                System.arraycopy(board.board[i], 0, solution.board[i], 0, board.board[0].length);
+        if (idx == blocks.size()) {
+            if (board.cekFull()) {
+                solution = new Board(board.board.length, board.board[0].length);
+                for (int i = 0; i < board.board.length; i++) {
+                    System.arraycopy(board.board[i], 0, solution.board[i], 0, board.board[0].length);
+                }
+                return true;
             }
-            return true;
+            else {
+                return false;
+            }
         }
         for (int k = 0; k < blocks.get(idx).variasi.size(); k++) {
             for (int i = 0; i < board.board.length; i++) {
                 for (int j = 0; j < board.board[0].length; j++) {
-                    if (board.cekFitBlock(blocks.get(idx), i, j)) {
+                    if (board.board[i][j] == '.' && board.cekFitBlock(blocks.get(idx), i, j)) {
                         board.putBlock(blocks.get(idx), i, j);
                         if (solve(idx + 1)) {
                             return true;
@@ -48,6 +53,8 @@ public class Solve {
             }
             blocks.get(idx).nextVar();
         }
+//        System.out.printf("%.2f", (double) tries / 1.2864321608040201e+16);
+//        System.out.print("\n");
         return false;
     }
 
