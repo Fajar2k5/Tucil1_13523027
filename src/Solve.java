@@ -5,10 +5,16 @@ public class Solve {
     List<Block> blocks;
     Board board;
     Board solution;
+    int tries;
 
     public Solve(List<Block> blocks, Board board) {
         this.blocks = blocks;
         this.board = board;
+        this.tries = 0;
+    }
+
+    public boolean solve() {
+        return solve(0);
     }
 
     public boolean solve(int idx) {
@@ -27,13 +33,30 @@ public class Solve {
                         if (solve(idx + 1)) {
                             return true;
                         }
+                        tries++;
                         board.delBlockByLetter(blocks.get(idx).symbol);
                     }
+                    tries++;
                 }
             }
             blocks.get(idx).nextVar();
         }
         return false;
+    }
+
+    public void printSolution() {
+        solution.printBoard();
+        System.out.println("\nTries: " + tries);
+    }
+
+    public void clearSolution() {
+        solution.clearBoard();
+        tries = 0;
+    }
+
+    public void clearBoard() {
+        board.clearBoard();
+        tries = 0;
     }
 
 }
