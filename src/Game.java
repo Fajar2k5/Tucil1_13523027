@@ -47,7 +47,8 @@ public class Game {
 
             char symbol = ' ';
             List<String> lines = new ArrayList<>();
-            while (scanner.hasNextLine()) {
+            int piecesCount = 0;
+            while (scanner.hasNextLine() && piecesCount < blockCount) {
                 String line = scanner.nextLine();
                 if (line.isEmpty()) {
                     continue;
@@ -58,6 +59,7 @@ public class Game {
                             lines = addPadding(lines);
                             Block block = new Block(String.join("\n", lines));
                             blocks.add(block);
+                            piecesCount++;
                             lines = new ArrayList<>();
                         }
                         symbol = c;
@@ -67,9 +69,11 @@ public class Game {
                 }
                 lines.add(line);
             }
-            lines = addPadding(lines);
-            Block block = new Block(String.join("\n", lines));
-            blocks.add(block);
+            if (piecesCount < blockCount) {
+                lines = addPadding(lines);
+                Block block = new Block(String.join("\n", lines));
+                blocks.add(block);
+            }
 
             scanner.close();
 
@@ -90,11 +94,9 @@ public class Game {
     public void solve() {
         solve = new Solve(blocks, board);
         boolean solved = solve.solve();
+        solve.printSolution();
         if (solved) {
-            solve.printSolution();
-        } else {
-            System.out.println("No solution found");
-        }
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -111,6 +113,9 @@ public class Game {
             }
         }
         scanner.close();
+        } else {
+            System.out.println("No solution found");
+        }
     }
 
     private List<String> addPadding(List<String> lines) {
