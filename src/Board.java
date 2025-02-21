@@ -2,6 +2,8 @@ public class Board {
     // Board untuk meletakkan block
 
     char[][] board;
+    int height;
+    int width;
 
     public static final String RESET = "\033[0m";
     public static final String RED = "\033[0;31m";
@@ -40,6 +42,17 @@ public class Board {
             for (int j = 0; j < col; j++) {
                 board[i][j] = '.';
             }
+        }
+        height = row;
+        width = col;
+    }
+
+    public Board(Board board) {
+        this.height = board.height;
+        this.width = board.width;
+        this.board = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            System.arraycopy(board.board[i], 0, this.board[i], 0, width);
         }
     }
 
@@ -139,10 +152,6 @@ public class Board {
     }
 
     public boolean cekFitBlock(Block block, int row, int col) {
-        if (row + block.currentVar().length > board.length || col + block.currentVar()[0].length > board[0].length) {
-            return false;
-            // Kalau blocknya keluar dari board, return false
-        }
         for (int i = 0; i < block.currentVar().length; i++) {
             for (int j = 0; j < block.currentVar()[0].length; j++) {
                 if (block.currentVar()[i][j] != ' ' && board[row + i][col + j] != '.') {
@@ -153,6 +162,22 @@ public class Board {
         }
         return true;
     }
+
+//    public boolean cekFitBlock2(Block block, int row, int col) {
+//        if (row + block.currentVar().length > board.length || col + block.currentVar()[0].length > board[0].length) {
+//            return false;
+//            // Kalau blocknya keluar dari board, return false
+//        }
+//        for (int i = 0; i < block.currentVar().length; i++) {
+//            for (int j = 0; j < block.currentVar()[0].length; j++) {
+//                if (block.currentVar()[i][j] != ' ' && board[row + i][col + j] != '.') {
+//                    return false;
+//                    // kalau coba diisi bagian block dan tidak kosong (isinya bukan '.') return false
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
     public void clearBoard() {
         for (int i = 0; i < board.length; i++) {
