@@ -69,7 +69,7 @@ public class Solve {
                 int width = bWidth - pWidth;
                 for (int i = 0; i <= height; i++) {
                     for (int j = 0; j <= width; j++) {
-                        if (currentBoard.board[i][j + jarak] == '.' && currentBoard.cekFitBlock(piece, i, j)) {
+                        if (currentBoard.board[i][j + jarak] == '.' && currentBoard.cekFit(piece, i, j)) {
                             Board newBoard = new Board(currentBoard);
                             newBoard.putBlock(piece, i, j);
                             stack.push(new Step(idx + 1, newBoard));

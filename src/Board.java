@@ -4,6 +4,7 @@ public class Board {
     char[][] board;
     int height;
     int width;
+    String mode = "DEFAULT";
 
     public static final String RESET = "\033[0m";
     public static final String RED = "\033[0;31m";
@@ -50,10 +51,24 @@ public class Board {
     public Board(Board board) {
         this.height = board.height;
         this.width = board.width;
+        this.mode = board.mode;
         this.board = new char[height][width];
         for (int i = 0; i < height; i++) {
             System.arraycopy(board.board[i], 0, this.board[i], 0, width);
         }
+    }
+
+    public Board(char[][] board) {
+        this.height = board.length;
+        this.width = board[0].length;
+        this.board = new char[height][width];
+        for (int i = 0; i < height; i++) {
+            System.arraycopy(board[i], 0, this.board[i], 0, width);
+        }
+    }
+
+    public void setCustom() {
+        mode = "CUSTOM";
     }
 
     public void printBoard() {
@@ -151,10 +166,30 @@ public class Board {
         }
     }
 
+    public boolean cekFit(Block block, int row, int col) {
+        if (mode.equals("CUSTOM")) {
+            return cekFitCustom(block, row, col);
+        } else {
+            return cekFitBlock(block, row, col);
+        }
+    }
+
     public boolean cekFitBlock(Block block, int row, int col) {
         for (int i = 0; i < block.currentVar().length; i++) {
             for (int j = 0; j < block.currentVar()[0].length; j++) {
                 if (block.currentVar()[i][j] != ' ' && board[row + i][col + j] != '.') {
+                    return false;
+                    // kalau coba diisi bagian block dan tidak kosong (isinya bukan '.') return false
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean cekFitCustom(Block block, int row, int col) {
+        for (int i = 0; i < block.currentVar().length; i++) {
+            for (int j = 0; j < block.currentVar()[0].length; j++) {
+                if (block.currentVar()[i][j] != ' ' && (board[row + i][col + j] != '.' || board[row + i][col + j] == ' ')) {
                     return false;
                     // kalau coba diisi bagian block dan tidak kosong (isinya bukan '.') return false
                 }
@@ -188,17 +223,27 @@ public class Board {
     }
 
     public void putBlock(Block block, int row, int col) {
-        // fungsi putBlock untuk meletakkan block di board jika cekFitBlock bernilai true
-        if (cekFitBlock(block, row, col)) {
-            for (int i = 0; i < block.currentVar().length; i++) {
-                for (int j = 0; j < block.currentVar()[0].length; j++) {
-                    if (block.currentVar()[i][j] != ' ') {
-                        board[row + i][col + j] = block.currentVar()[i][j];
-                    }
+        for (int i = 0; i < block.currentVar().length; i++) {
+            for (int j = 0; j < block.currentVar()[0].length; j++) {
+                if (block.currentVar()[i][j] != ' ') {
+                    board[row + i][col + j] = block.currentVar()[i][j];
                 }
             }
         }
     }
+
+//    public void putBlock(Block block, int row, int col) {
+//        // fungsi putBlock untuk meletakkan block di board jika cekFitBlock bernilai true
+//        if (cekFitBlock(block, row, col)) {
+//            for (int i = 0; i < block.currentVar().length; i++) {
+//                for (int j = 0; j < block.currentVar()[0].length; j++) {
+//                    if (block.currentVar()[i][j] != ' ') {
+//                        board[row + i][col + j] = block.currentVar()[i][j];
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public void delBlockByLetter(char letter) {
         for (int i = 0; i < board.length; i++) {
