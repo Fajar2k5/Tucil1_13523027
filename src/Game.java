@@ -225,6 +225,7 @@ public class Game {
                 file = new File("img_solusi" + count + ".png");
             } while (file.exists());
             ImageIO.write(image, "png", file);
+            System.out.println("Gambar disimpan: " + file.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }

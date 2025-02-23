@@ -101,7 +101,7 @@ public class Board {
                 System.out.print(CYAN + bChar + RESET);
                 break;
             case 'G':
-                System.out.print(PURPLE_BACKGROUND + BLACK + bChar + RESET);
+                System.out.print(PURPLE_BACKGROUND + bChar + RESET);
                 break;
             case 'H':
                 System.out.print(RED_BOLD + bChar + RESET);
@@ -217,7 +217,9 @@ public class Board {
     public void clearBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = '.';
+                if (board[i][j] != ' ') {
+                    board[i][j] = '.';
+                }
             }
         }
     }

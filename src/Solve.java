@@ -21,14 +21,6 @@ public class Solve {
         this.bHeight = board.board.length;
     }
 
-//    public boolean solve() {
-//        long startTime = System.currentTimeMillis();
-//        boolean result = solve(0);
-//        long endTime = System.currentTimeMillis();
-//        time = endTime - startTime;
-//        return result;
-//    }
-
     public boolean solve() {
         long startTime = System.currentTimeMillis();
         boolean result = solveNew();
@@ -93,53 +85,6 @@ public class Solve {
             this.board = board;
         }
     }
-
-    // somehow rekursif kek gini ga dibolehin asisten padahal juga brute forcfe itungannya
-    // karena nyoba semua kemungkinan, sampe milyaran juga dicoba
-//    public boolean solve(int idx) {
-//
-//        if (idx == blocks.size()) {
-//            if (board.cekFull()) {
-//                solution = new Board(board.board.length, board.board[0].length);
-//                for (int i = 0; i < board.board.length; i++) {
-//                    System.arraycopy(board.board[i], 0, solution.board[i], 0, board.board[0].length);
-//                }
-//                solved = true;
-//                return true;
-//            }
-//            else {
-//                return false;
-//            }
-//        }
-//        for (int k = 0; k < blocks.get(idx).variasi.size(); k++) {
-//            Block piece = blocks.get(idx);
-//            int pWidth = piece.currentVar()[0].length;
-//            int jarak = 0;
-//            for (int m = 0; m < pWidth; m++) {
-//                if (piece.currentVar()[0][m] != ' ') {
-//                    jarak = m;
-//                    break;
-//                }
-//            }
-//            int height = bHeight - piece.currentVar().length;
-//            int width = bWidth - pWidth;
-//            for (int i = 0; i <= height; i++) {
-//                for (int j = 0; j <= width; j++) {
-//                    if (board.board[i][j + jarak] == '.' && board.cekFitBlock(piece, i, j)) {
-//                        board.putBlock(piece, i, j);
-//                        if (solve(idx + 1)) {
-//                            return true;
-//                        }
-//                        tries++;
-//                        board.delBlockByLetter(piece.symbol);
-//                    }
-//                    tries++;
-//                }
-//            }
-//            piece.nextVar();
-//        }
-//        return false;
-//    }
 
     public void printSolution() {
         if (solved) {
