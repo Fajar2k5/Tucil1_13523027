@@ -21,7 +21,7 @@
 
    ![image](https://github.com/user-attachments/assets/60de6c4a-de3a-41f7-9f59-752dd60d689a)
   
-4. Jika input valid akan ditampilkan solusinya (jika ada) dengan durasi brute force dan banyak percobaan yang dilakukan dan prompt untuk menyimpan solusi ke file teks atau gambar
+4. Jika input valid akan ditampilkan solusinya (jika ada) dengan durasi brute force dan banyak percobaan yang dilakukan dan prompt untuk menyimpan solusi ke file teks atau gambar. Path ke file output maupun input relative terhadap directory di mana terminal dijalankan.
 
    ![image](https://github.com/user-attachments/assets/b7772477-a923-4a19-b5a5-2da53e56ca66)
 5. Ketik `ya` untuk menyimpan program, kemudian ketik `png` atau `txt` untuk menyimpan dalam format gambar atau plain text
